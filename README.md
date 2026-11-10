@@ -4,7 +4,7 @@ A live Android news reader for technology, business and sports, with swipe refre
 
 Pynexia Android Development / Week 3.
 
-[Hosted showcase](https://engeyad.github.io/pynexia-week3-news/) · [PDF report](https://github.com/ENGEyad/pynexia-week3-news/releases/latest/download/News-App-Report.pdf) · [APK](https://github.com/ENGEyad/pynexia-week3-news/releases/latest/download/News-App.apk) · [Source ZIP](https://github.com/ENGEyad/pynexia-week3-news/releases/latest/download/News-App.zip)
+[Hosted showcase](https://engeyad.github.io/pynexia-week3-news/) · [PDF report](https://github.com/ENGEyad/pynexia-week3-news/releases/latest/download/News-App-Report.pdf) · [APK](https://github.com/ENGEyad/pynexia-week3-news/releases/latest/download/news-debug.apk) · [Source ZIP](https://github.com/ENGEyad/pynexia-week3-news/releases/latest/download/News-App.zip)
 
 ## Implementation
 
