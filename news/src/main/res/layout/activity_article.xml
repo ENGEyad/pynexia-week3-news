@@ -1,0 +1,8 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#F4F5EE"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="22dp">
+ <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ARTICLE BRIEF" android:textColor="#246A5B" android:textStyle="bold" android:textSize="12sp"/>
+ <ImageView android:id="@+id/detailImage" android:layout_width="match_parent" android:layout_height="220dp" android:scaleType="centerCrop" android:contentDescription="Article image" android:layout_marginTop="18dp"/>
+ <TextView android:id="@+id/detailSource" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#557066" android:textSize="13sp" android:layout_marginTop="18dp"/>
+ <TextView android:id="@+id/detailTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#193F36" android:textSize="28sp" android:textStyle="bold" android:layout_marginTop="10dp"/>
+ <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="This briefing shows the story headline and source. Open the publisher’s page for the complete article." android:textColor="#5C7067" android:textSize="16sp" android:layout_marginTop="18dp"/>
+ <Button android:id="@+id/openArticle" android:layout_width="match_parent" android:layout_height="52dp" android:text="Read full story" android:textAllCaps="false" android:backgroundTint="#246A5B" android:textColor="#FFFFFF" android:layout_marginTop="22dp"/>
+ </LinearLayout></ScrollView>

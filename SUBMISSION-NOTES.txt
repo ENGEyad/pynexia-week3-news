@@ -1,0 +1,11 @@
+Native Android News App built with Java, XML and Retrofit. Loads recent technology, business or sports headlines from the GDELT DOC JSON API.
+
+Swipe to refresh. RecyclerView displays headline, publisher domain, date and image loaded with Glide. Select an item for story details and open the original publisher page.
+
+Run the news module in Android Studio with JDK 17/21 and Android SDK 35 on Android 8.0/API 26 or later. Internet access is needed.
+
+Build: assembleDebug passed. Automated tests were not run. Lint findings are included in the repository and report.
+
+Availability, article coverage and images depend on GDELT and external publishers. Full article text remains on the publisher website.
+
+Hosted page includes the APK, source archive, report and screenshots.

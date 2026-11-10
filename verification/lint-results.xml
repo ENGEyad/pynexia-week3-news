@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.9.1">
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` **without specifying an explicit locale** is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is **not** `I`.&#xA;&#xA;If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.ROOT)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1=" public static GdeltResponse samples(String category) { GdeltResponse result=new GdeltResponse();GdeltArticle a=new GdeltArticle();a.title=&quot;Sample story: Exploring current &quot;+category.toLowerCase()+&quot; topics&quot;;a.domain=&quot;Offline sample&quot;;a.seenDate=&quot;20261110T000000Z&quot;;a.imageUrl=&quot;https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&quot;;a.sampleOnly=true;result.articles.add(a);return result; }"
+        errorLine2="                                                                                                                                                                                       ~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\GdeltResponse.java"
+            line="8"
+            column="184"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` **without specifying an explicit locale** is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is **not** `I`.&#xA;&#xA;If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.ROOT)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1=" private void select(String value,SwipeRefreshLayout swipe) { category=value; status.setText(&quot;Latest &quot;+value.toLowerCase()+&quot; headlines&quot;); load(swipe); }"
+        errorLine2="                                                                                                             ~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\MainActivity.java"
+            line="16"
+            column="110"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` **without specifying an explicit locale** is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is **not** `I`.&#xA;&#xA;If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.ROOT)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1=" private void load(SwipeRefreshLayout swipe) { final long request=++requestVersion; final String requestedCategory=category; status.setText(&quot;Loading &quot;+category.toLowerCase()+&quot; headlines…&quot;); findViewById(R.id.retry).setVisibility(View.GONE); swipe.setRefreshing(true); repository.fetch(category,(response,error)->runOnUiThread(()->{ if(request!=requestVersion||isFinishing())return; swipe.setRefreshing(false); adapter.replace(response.articles); if (error!=null) { status.setText(error); findViewById(R.id.retry).setVisibility(View.VISIBLE); } else { status.setText(response.articles.isEmpty()?&quot;No recent stories found. Pull down to refresh.&quot;:response.articles.size()+&quot; recent stories · tap one to read details&quot;); } })); }"
+        errorLine2="                                                                                                                                                                ~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\MainActivity.java"
+            line="17"
+            column="161"/>
+    </issue>
+
+    <issue
+        id="OldTargetApi"
+        severity="Warning"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details."
+        category="Correctness"
+        priority="6"
+        summary="Target SDK attribute is not targeting latest version"
+        explanation="When your application or sdk runs on a version of Android that is more recent than your `targetSdkVersion` specifies that it has been tested with, various compatibility modes kick in. This ensures that your application continues to work, but it may look out of place. For example, if the `targetSdkVersion` is less than 14, your app may get an option button in the UI.&#xA;&#xA;To fix this issue, set the `targetSdkVersion` to the highest available value. Then test your app to make sure everything works correctly. You may want to consult the compatibility notes to see what changes apply to each version you are adding support for: https://developer.android.com/reference/android/os/Build.VERSION_CODES.html as well as follow this guide:&#xA;https://developer.android.com/distribute/best-practices/develop/target-sdk.html"
+        url="https://developer.android.com/distribute/best-practices/develop/target-sdk.html"
+        urls="https://developer.android.com/distribute/best-practices/develop/target-sdk.html,https://developer.android.com/reference/android/os/Build.VERSION_CODES.html"
+        errorLine1=" defaultConfig { applicationId &apos;com.pynexia.week3.news&apos;; minSdk 26; targetSdk 35; versionCode 1; versionName &apos;1.0&apos; }"
+        errorLine2="                                                                    ~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\build.gradle"
+            line="3"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.activity:activity than 1.10.1 is available: 1.13.0"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1=" implementation &apos;androidx.activity:activity:1.10.1&apos;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\build.gradle"
+            line="7"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="DataExtractionRules"
+        severity="Warning"
+        message="The attribute `android:allowBackup` is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures cloud backups and device transfers on Android 12 and higher."
+        category="Security"
+        priority="3"
+        summary="Missing data extraction rules"
+        explanation="Before Android 12, the attributes `android:allowBackup` and `android:fullBackupContent` were used to configure all forms of backup, including cloud backups, device-to-device transfers and adb backup.&#xA;&#xA;In Android 12 and higher, these attributes have been deprecated and will only apply to cloud backups. You should instead use the attribute `android:dataExtractionRules`, specifying an `@xml` resource that configures which files to back up, for cloud backups and for device-to-device transfers, separately. If your `minSdkVersion` supports older versions, you&apos;ll still want to specify an `android:fullBackupContent` resource if the default behavior is not right for your app."
+        url="https://developer.android.com/about/versions/12/backup-restore#xml-changes"
+        urls="https://developer.android.com/about/versions/12/backup-restore#xml-changes,https://goo.gle/DataExtractionRules"
+        errorLine1="&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/>&lt;application android:label=&quot;@string/app_name&quot; android:icon=&quot;@drawable/ic_logo&quot; android:allowBackup=&quot;false&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/AppTheme&quot;>&lt;activity android:name=&quot;.ArticleActivity&quot; android:exported=&quot;false&quot;/>&lt;activity android:name=&quot;.MainActivity&quot; android:exported=&quot;true&quot; android:windowSoftInputMode=&quot;adjustResize&quot;>&lt;intent-filter>&lt;action android:name=&quot;android.intent.action.MAIN&quot;/>&lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/>&lt;/intent-filter>&lt;/activity>&lt;/application>&lt;/manifest>"
+        errorLine2="                                                                                                                                                                                                                                      ~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\AndroidManifest.xml"
+            line="1"
+            column="231"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        severity="Warning"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        category="Performance"
+        priority="8"
+        summary="Invalidating All RecyclerView Data"
+        explanation="The `RecyclerView` adapter&apos;s `onNotifyDataSetChanged` method does not specify what about the data set has changed, forcing any observers to assume that all existing items and structure may no longer be valid. `LayoutManager`s will be forced to fully rebind and relayout all visible views."
+        errorLine1=" void replace(List&lt;GdeltArticle> values) { items.clear(); if (values != null) items.addAll(values); notifyDataSetChanged(); }"
+        errorLine2="                                                                                                    ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\ArticleAdapter.java"
+            line="17"
+            column="101"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        severity="Warning"
+        message="Possible overdraw: Root element paints background `#F4F5EE` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
+        category="Performance"
+        priority="3"
+        summary="Overdraw: Painting regions more than once"
+        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.&#xA;&#xA;NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.&#xA;&#xA;If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.&#xA;&#xA;Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead."
+        errorLine1="&lt;ScrollView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;match_parent&quot; android:background=&quot;#F4F5EE&quot;>&lt;LinearLayout android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;wrap_content&quot; android:orientation=&quot;vertical&quot; android:padding=&quot;22dp&quot;>"
+        errorLine2="                                                                                                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_article.xml"
+            line="1"
+            column="145"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        severity="Warning"
+        message="Possible overdraw: Root element paints background `#F4F5EE` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
+        category="Performance"
+        priority="3"
+        summary="Overdraw: Painting regions more than once"
+        explanation="If you set a background drawable on a root view, then you should use a custom theme where the theme background is null. Otherwise, the theme background will be painted first, only to have your custom background completely cover it; this is called &quot;overdraw&quot;.&#xA;&#xA;NOTE: This detector relies on figuring out which layouts are associated with which activities based on scanning the Java code, and it&apos;s currently doing that using an inexact pattern matching algorithm. Therefore, it can incorrectly conclude which activity the layout is associated with and then wrongly complain that a background-theme is hidden.&#xA;&#xA;If you want your custom background on multiple pages, then you should consider making a custom theme with your custom background and just using that theme instead of a root element background.&#xA;&#xA;Of course it&apos;s possible that your custom drawable is translucent and you want it to be mixed with the background. However, you will get better performance if you pre-mix the background with your drawable and use that resulting image or color as a custom theme background instead."
+        errorLine1="&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;match_parent&quot; android:orientation=&quot;vertical&quot; android:background=&quot;#F4F5EE&quot; android:padding=&quot;20dp&quot;>"
+        errorLine2="                                                                                                                                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="1"
+            column="178"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.input` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>&lt;solid android:color=&quot;#FFFFFF&quot;/>&lt;corners android:radius=&quot;13dp&quot;/>&lt;stroke android:width=&quot;1dp&quot; android:color=&quot;#D7DED3&quot;/>&lt;/shape>"
+        errorLine2="~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\drawable\input.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ButtonStyle"
+        severity="Warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)"
+        category="Usability"
+        priority="5"
+        summary="Button should be borderless"
+        explanation="Button bars typically use a borderless style for the buttons. Set the `style=&quot;?android:attr/buttonBarButtonStyle&quot;` attribute on each of the buttons, and set `style=&quot;?android:attr/buttonBarStyle&quot;` on the parent layout"
+        url="https://d.android.com/r/studio-ui/designer/material/dialogs"
+        urls="https://d.android.com/r/studio-ui/designer/material/dialogs"
+        errorLine1=" &lt;Button android:id=&quot;@+id/tech&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;44dp&quot; android:text=&quot;Technology&quot; android:textAllCaps=&quot;false&quot; android:backgroundTint=&quot;#246A5B&quot; android:textColor=&quot;#FFFFFF&quot;/>"
+        errorLine2=" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="7"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="ButtonStyle"
+        severity="Warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)"
+        category="Usability"
+        priority="5"
+        summary="Button should be borderless"
+        explanation="Button bars typically use a borderless style for the buttons. Set the `style=&quot;?android:attr/buttonBarButtonStyle&quot;` attribute on each of the buttons, and set `style=&quot;?android:attr/buttonBarStyle&quot;` on the parent layout"
+        url="https://d.android.com/r/studio-ui/designer/material/dialogs"
+        urls="https://d.android.com/r/studio-ui/designer/material/dialogs"
+        errorLine1=" &lt;Button android:id=&quot;@+id/business&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;44dp&quot; android:text=&quot;Business&quot; android:textAllCaps=&quot;false&quot; android:layout_marginStart=&quot;8dp&quot; android:backgroundTint=&quot;#DCE7DA&quot; android:textColor=&quot;#193F36&quot;/>"
+        errorLine2=" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="8"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="ButtonStyle"
+        severity="Warning"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)"
+        category="Usability"
+        priority="5"
+        summary="Button should be borderless"
+        explanation="Button bars typically use a borderless style for the buttons. Set the `style=&quot;?android:attr/buttonBarButtonStyle&quot;` attribute on each of the buttons, and set `style=&quot;?android:attr/buttonBarStyle&quot;` on the parent layout"
+        url="https://d.android.com/r/studio-ui/designer/material/dialogs"
+        urls="https://d.android.com/r/studio-ui/designer/material/dialogs"
+        errorLine1=" &lt;Button android:id=&quot;@+id/sports&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;44dp&quot; android:text=&quot;Sports&quot; android:textAllCaps=&quot;false&quot; android:layout_marginStart=&quot;8dp&quot; android:backgroundTint=&quot;#DCE7DA&quot; android:textColor=&quot;#193F36&quot;/>"
+        errorLine2=" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="9"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1=" @Override protected void onCreate(Bundle state) { super.onCreate(state); setContentView(R.layout.activity_article); Intent i=getIntent(); ((TextView)findViewById(R.id.detailTitle)).setText(i.getStringExtra(&quot;title&quot;)); ((TextView)findViewById(R.id.detailSource)).setText((i.getStringExtra(&quot;domain&quot;)==null?&quot;News source&quot;:i.getStringExtra(&quot;domain&quot;))+&quot; · &quot;+i.getStringExtra(&quot;date&quot;)); Glide.with(this).load(i.getStringExtra(&quot;image&quot;)).centerCrop().placeholder(R.drawable.card).error(R.drawable.card).into((ImageView)findViewById(R.id.detailImage)); Button open=findViewById(R.id.openArticle); String url=i.getStringExtra(&quot;url&quot;); if(url==null||!(url.startsWith(&quot;https://&quot;)||url.startsWith(&quot;http://&quot;))){open.setVisibility(android.view.View.GONE);((TextView)findViewById(R.id.detailTitle)).append(&quot; - Offline sample, no live source.&quot;);} else open.setOnClickListener(v->startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(url)))); }"
+        errorLine2="                                                                                                                                                                                                                                                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\ArticleActivity.java"
+            line="12"
+            column="271"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1=" @Override public void onBindViewHolder(@NonNull Holder h,int position) { GdeltArticle a=items.get(position); h.title.setText(a.safeTitle()); h.meta.setText((a.domain == null ? &quot;World news&quot; : a.domain)+&quot;  ·  &quot;+(a.sampleOnly?&quot;Demo, not live news&quot;:a.displayDate())); Glide.with(h.image).load(a.imageUrl).centerCrop().placeholder(R.drawable.card).error(R.drawable.card).into(h.image); h.itemView.setOnClickListener(v->listener.open(a)); }"
+        errorLine2="                                                                                                                                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\ArticleAdapter.java"
+            line="19"
+            column="158"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1=" private void select(String value,SwipeRefreshLayout swipe) { category=value; status.setText(&quot;Latest &quot;+value.toLowerCase()+&quot; headlines&quot;); load(swipe); }"
+        errorLine2="                                                                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\MainActivity.java"
+            line="16"
+            column="94"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1=" private void select(String value,SwipeRefreshLayout swipe) { category=value; status.setText(&quot;Latest &quot;+value.toLowerCase()+&quot; headlines&quot;); load(swipe); }"
+        errorLine2="                                                                                             ~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\MainActivity.java"
+            line="16"
+            column="94"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1=" private void select(String value,SwipeRefreshLayout swipe) { category=value; status.setText(&quot;Latest &quot;+value.toLowerCase()+&quot; headlines&quot;); load(swipe); }"
+        errorLine2="                                                                                                                           ~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\MainActivity.java"
+            line="16"
+            column="124"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1=" private void load(SwipeRefreshLayout swipe) { final long request=++requestVersion; final String requestedCategory=category; status.setText(&quot;Loading &quot;+category.toLowerCase()+&quot; headlines…&quot;); findViewById(R.id.retry).setVisibility(View.GONE); swipe.setRefreshing(true); repository.fetch(category,(response,error)->runOnUiThread(()->{ if(request!=requestVersion||isFinishing())return; swipe.setRefreshing(false); adapter.replace(response.articles); if (error!=null) { status.setText(error); findViewById(R.id.retry).setVisibility(View.VISIBLE); } else { status.setText(response.articles.isEmpty()?&quot;No recent stories found. Pull down to refresh.&quot;:response.articles.size()+&quot; recent stories · tap one to read details&quot;); } })); }"
+        errorLine2="                                                                                                                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\MainActivity.java"
+            line="17"
+            column="141"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1=" private void load(SwipeRefreshLayout swipe) { final long request=++requestVersion; final String requestedCategory=category; status.setText(&quot;Loading &quot;+category.toLowerCase()+&quot; headlines…&quot;); findViewById(R.id.retry).setVisibility(View.GONE); swipe.setRefreshing(true); repository.fetch(category,(response,error)->runOnUiThread(()->{ if(request!=requestVersion||isFinishing())return; swipe.setRefreshing(false); adapter.replace(response.articles); if (error!=null) { status.setText(error); findViewById(R.id.retry).setVisibility(View.VISIBLE); } else { status.setText(response.articles.isEmpty()?&quot;No recent stories found. Pull down to refresh.&quot;:response.articles.size()+&quot; recent stories · tap one to read details&quot;); } })); }"
+        errorLine2="                                                                                                                                            ~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\MainActivity.java"
+            line="17"
+            column="141"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1=" private void load(SwipeRefreshLayout swipe) { final long request=++requestVersion; final String requestedCategory=category; status.setText(&quot;Loading &quot;+category.toLowerCase()+&quot; headlines…&quot;); findViewById(R.id.retry).setVisibility(View.GONE); swipe.setRefreshing(true); repository.fetch(category,(response,error)->runOnUiThread(()->{ if(request!=requestVersion||isFinishing())return; swipe.setRefreshing(false); adapter.replace(response.articles); if (error!=null) { status.setText(error); findViewById(R.id.retry).setVisibility(View.VISIBLE); } else { status.setText(response.articles.isEmpty()?&quot;No recent stories found. Pull down to refresh.&quot;:response.articles.size()+&quot; recent stories · tap one to read details&quot;); } })); }"
+        errorLine2="                                                                                                                                                                              ~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\java\com\pynexia\week3\news\MainActivity.java"
+            line="17"
+            column="175"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;ARTICLE BRIEF&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;TextView android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:text=&quot;ARTICLE BRIEF&quot; android:textColor=&quot;#246A5B&quot; android:textStyle=&quot;bold&quot; android:textSize=&quot;12sp&quot;/>"
+        errorLine2="                                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_article.xml"
+            line="2"
+            column="85"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Article image&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;ImageView android:id=&quot;@+id/detailImage&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;220dp&quot; android:scaleType=&quot;centerCrop&quot; android:contentDescription=&quot;Article image&quot; android:layout_marginTop=&quot;18dp&quot;/>"
+        errorLine2="                                                                                                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_article.xml"
+            line="3"
+            column="140"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;This briefing shows the story headline and source. Open the publisher’s page for the complete article.&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;TextView android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;wrap_content&quot; android:text=&quot;This briefing shows the story headline and source. Open the publisher’s page for the complete article.&quot; android:textColor=&quot;#5C7067&quot; android:textSize=&quot;16sp&quot; android:layout_marginTop=&quot;18dp&quot;/>"
+        errorLine2="                                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_article.xml"
+            line="6"
+            column="85"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Read full story&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;Button android:id=&quot;@+id/openArticle&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;52dp&quot; android:text=&quot;Read full story&quot; android:textAllCaps=&quot;false&quot; android:backgroundTint=&quot;#246A5B&quot; android:textColor=&quot;#FFFFFF&quot; android:layout_marginTop=&quot;22dp&quot;/>"
+        errorLine2="                                                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_article.xml"
+            line="7"
+            column="105"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;PYNEXIA / LIVE NEWS&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;TextView android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:text=&quot;PYNEXIA / LIVE NEWS&quot; android:textColor=&quot;#246A5B&quot; android:textStyle=&quot;bold&quot; android:textSize=&quot;12sp&quot; android:letterSpacing=&quot;0.1&quot; android:layout_marginTop=&quot;10dp&quot;/>"
+        errorLine2="                                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="2"
+            column="85"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;The world, in the moment.&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;TextView android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;wrap_content&quot; android:text=&quot;The world,"
+        errorLine2="                                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="3"
+            column="85"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Fresh reporting from around the world.&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;TextView android:id=&quot;@+id/intro&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;wrap_content&quot; android:text=&quot;Fresh reporting from around the world.&quot; android:textColor=&quot;#5C7067&quot; android:textSize=&quot;14sp&quot; android:layout_marginTop=&quot;6dp&quot; android:layout_marginBottom=&quot;12dp&quot;/>"
+        errorLine2="                                                                                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="5"
+            column="109"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Technology&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;Button android:id=&quot;@+id/tech&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;44dp&quot; android:text=&quot;Technology&quot; android:textAllCaps=&quot;false&quot; android:backgroundTint=&quot;#246A5B&quot; android:textColor=&quot;#FFFFFF&quot;/>"
+        errorLine2="                                                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="7"
+            column="98"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Business&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;Button android:id=&quot;@+id/business&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;44dp&quot; android:text=&quot;Business&quot; android:textAllCaps=&quot;false&quot; android:layout_marginStart=&quot;8dp&quot; android:backgroundTint=&quot;#DCE7DA&quot; android:textColor=&quot;#193F36&quot;/>"
+        errorLine2="                                                                                                     ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="8"
+            column="102"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Sports&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;Button android:id=&quot;@+id/sports&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;44dp&quot; android:text=&quot;Sports&quot; android:textAllCaps=&quot;false&quot; android:layout_marginStart=&quot;8dp&quot; android:backgroundTint=&quot;#DCE7DA&quot; android:textColor=&quot;#193F36&quot;/>"
+        errorLine2="                                                                                                   ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="9"
+            column="100"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Loading headlines…&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;TextView android:id=&quot;@+id/status&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;wrap_content&quot; android:text=&quot;Loading headlines…&quot; android:textColor=&quot;#5C7067&quot; android:textSize=&quot;13sp&quot; android:paddingTop=&quot;8dp&quot; android:paddingBottom=&quot;8dp&quot;/>"
+        errorLine2="                                                                                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="11"
+            column="110"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Try again&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;Button android:id=&quot;@+id/retry&quot; android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot; android:text=&quot;Try again&quot; android:textAllCaps=&quot;false&quot; android:visibility=&quot;gone&quot;/>"
+        errorLine2="                                                                                                          ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\activity_main.xml"
+            line="12"
+            column="107"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;News article image&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1=" &lt;ImageView android:id=&quot;@+id/articleImage&quot; android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;168dp&quot; android:scaleType=&quot;centerCrop&quot; android:contentDescription=&quot;News article image&quot;/>"
+        errorLine2="                                                                                                                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="D:\Random Projects\Pynexia\week-3\news\src\main\res\layout\row_article.xml"
+            line="2"
+            column="141"/>
+    </issue>
+
+</issues>
